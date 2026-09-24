@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600,700&display=swap');
+
+:root {
+  --token-bg: #FBF9F5;
+  --token-bg-card: #FFFFFF;
+  --token-dark: #0A0A0A;
+  --token-dark-card: #121418;
+  --token-dark-surface: #181C24;
+  
+  /* High contrast text */
+  --token-text-primary: #0A0A0A;
+  --token-text-secondary: #2A2A2A;
+  --token-text-muted: #666666;
+  --token-text-light: #FBF9F5;
+  --token-text-light-muted: rgba(251, 249, 245, 0.75);
+
+  /* High contrast borders */
+  --token-border: rgba(10, 10, 10, 0.12);
+  --token-border-strong: rgba(10, 10, 10, 0.22);
+  --token-border-dark: rgba(255, 255, 255, 0.14);
+
+  /* Vibrant Accents that match the warm photo & high-end Framer palette */
+  --token-amber: #D97706;
+  --token-amber-vibrant: #F59E0B;
+  --token-amber-light: rgba(245, 158, 11, 0.14);
+  --token-amber-glow: rgba(245, 158, 11, 0.28);
+  
+  --token-accent: #E11D48;
+  --token-accent-rose: #F43F5E;
+  --token-accent-light: rgba(225, 29, 72, 0.12);
+  
+  --token-emerald: #059669;
+  --token-emerald-light: rgba(16, 185, 129, 0.14);
+  
+  --token-cyan: #0284C7;
+  --token-cyan-light: rgba(2, 132, 199, 0.14);
+
+  --token-indigo: #4F46E5;
+  --token-indigo-light: rgba(79, 70, 229, 0.12);
+
+  --font-display: 'Clash Grotesk', 'Archivo', sans-serif;
+  --font-heading: 'Archivo', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--token-bg);
+  color: var(--token-text-primary);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+body {
+  background-color: var(--token-bg);
+  color: var(--token-text-primary);
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+  position: relative;
+}
+
+#root {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+p, span, a, li, input, textarea, select, button {
+  overflow-wrap: break-word;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--token-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(10, 10, 10, 0.25);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(10, 10, 10, 0.5);
+}
+
+/* Container */
+.container-custom {
+  width: 100%;
+  max-width: 1220px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 28px;
+  padding-right: 28px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .container-custom {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+}
+
+@media (max-width: 380px) {
+  .container-custom {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
+
+/* Typography utilities */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* Diagonal hatched background pattern */
+.hatched-bg {
+  background-repeat: repeat;
+  background-position: left top;
+  background-size: 40px auto;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='126' height='126'%3E%3Cpath d='M126 0v21.584L21.584 126H0v-17.585L108.415 0H126Zm0 108.414V126h-17.586L126 108.414Zm0-84v39.171L63.585 126H24.414L126 24.414Zm0 42v39.17L105.584 126h-39.17L126 66.414ZM105.586 0 0 105.586V66.415L66.415 0h39.171Zm-42 0L0 63.586V24.415L24.415 0h39.171Zm-42 0L0 21.586V0h21.586Z' fill='rgba(10, 10, 10, 0.05)' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+/* Rolling text animation effect */
+.rolling-text-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rolling-text-wrap {
+  display: inline-block;
+  height: 1.25em;
+  overflow: hidden;
+  position: relative;
+  line-height: 1.25em;
+}
+
+.rolling-text-inner {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.rolling-text-btn:hover .rolling-text-inner {
+  transform: translateY(-50%);
+}
+
+/* 3D Card Perspective */
+.perspective-1000 {
+  perspective: 1200px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+/* Subtle float animation for holo element */
+@keyframes subtleFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(4deg);
+  }
+}
+
+.animate-float {
+  animation: subtleFloat 5s ease-in-out infinite;
+}
+
+/* Glow pulse */
+@keyframes greenPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+  }
+}
+
+.pulse-green {
+  animation: greenPulse 2.2s infinite;
+}
+
+/* Selection */
+::selection {
+  background-color: #0A0A0A;
+  color: #FBF9F5;
+}
