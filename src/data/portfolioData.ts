@@ -11,6 +11,8 @@ export interface Project {
   githubUrl: string;
   demoUrl?: string;
   image: string;
+  snapshotUrl?: string;
+  snapshotCaption?: string;
   badge?: string;
 }
 
@@ -143,7 +145,9 @@ export const PORTFOLIO_DATA = {
       metrics: ['92% Match Accuracy', '500+ Daily Listings', '70% Sourcing Time Saved'],
       tech: ['TypeScript', 'React 19', 'Node.js', 'Python', 'OpenAI API', 'Groq', 'Selenium'],
       githubUrl: 'https://github.com/Patial-45/AI_Based_Resume_Builder',
-      image: '/images/project-mock-1.png',
+      image: '/images/project-snapshot-1.jpg',
+      snapshotUrl: '/images/project-snapshot-1.jpg',
+      snapshotCaption: 'AI Resume Compatibility Analysis & Real-time ATS Score Dashboard',
       badge: 'Featured AI Project'
     },
     {
@@ -161,7 +165,9 @@ export const PORTFOLIO_DATA = {
       metrics: ['20,000+ Contacts Indexed', '180+ Daily Matches', 'Redis Task Queue'],
       tech: ['TypeScript', 'Node.js', 'Express', 'PostgreSQL', 'pgvector', 'Redis', 'BullMQ', 'Elasticsearch'],
       githubUrl: 'https://github.com/Patial-45/executive-search-platform',
-      image: '/images/project-mock-2.png',
+      image: '/images/project-snapshot-2.jpg',
+      snapshotUrl: '/images/project-snapshot-2.jpg',
+      snapshotCaption: 'De Corporate Executive Talent Search — 1536-dim pgvector Similarity Ranking',
       badge: 'Production System'
     },
     {
@@ -179,7 +185,9 @@ export const PORTFOLIO_DATA = {
       metrics: ['<200ms API Latency', '35% Faster Load Time', '100+ Active Users'],
       tech: ['React', 'Node.js', 'Express', 'MongoDB', 'Redux Toolkit', 'JWT', 'REST API'],
       githubUrl: 'https://github.com/Patial-45/Online-Freelance-Platform',
-      image: '/images/project-mock-3.png',
+      image: '/images/project-snapshot-3.jpg',
+      snapshotUrl: '/images/project-snapshot-3.jpg',
+      snapshotCaption: 'VectraWork Milestone Escrow Board ($4,250) & Verified Bidding Marketplace',
       badge: 'Full Stack App'
     },
     {
@@ -197,7 +205,9 @@ export const PORTFOLIO_DATA = {
       metrics: ['40-Person Team Adoption', '3x Sourcing Throughput', 'Automated Scraping'],
       tech: ['JavaScript', 'Chrome Extensions API', 'Python', 'BeautifulSoup', 'Node.js'],
       githubUrl: 'https://github.com/Patial-45',
-      image: '/images/project-mock-4.png',
+      image: '/images/project-snapshot-4.jpg',
+      snapshotUrl: '/images/project-snapshot-4.jpg',
+      snapshotCaption: 'TalentScout Pro Chrome Extension — 1-Click Candidate Contact & Skills Enrichment',
       badge: 'Internal Tooling'
     },
     {
@@ -214,7 +224,9 @@ export const PORTFOLIO_DATA = {
       metrics: ['Deep Work Optimization', 'Zero Overhead', 'TypeScript'],
       tech: ['TypeScript', 'Node.js', 'CLI Tools'],
       githubUrl: 'https://github.com/Patial-45/quite-hours',
-      image: '/images/thought-1.png',
+      image: '/images/project-snapshot-5.jpg',
+      snapshotUrl: '/images/project-snapshot-5.jpg',
+      snapshotCaption: 'Quite Hours — Deep Work Timer, Calendar Synch & Daemon Distraction Blocker',
       badge: 'Open Source'
     }
   ] as Project[],
@@ -222,15 +234,15 @@ export const PORTFOLIO_DATA = {
   experience: [
     {
       company: 'De Corporate Consulting Pvt. Ltd.',
-      role: 'Senior Operations Associate & Full Stack Lead',
+      role: 'Senior Operations Associate',
       location: 'Chandigarh, India',
       period: 'Sep 2025 – Present',
       bullets: [
-        'Architected and built an AI-powered client-job matching platform end-to-end using React, TypeScript, Node.js/Express, PostgreSQL with pgvector, Elasticsearch, and Redis/BullMQ.',
-        'Built the company’s core database from scratch to 1,000+ verified companies and 20,000+ verified corporate contacts across BFSI, Tech/SaaS, Healthcare, and VC/PE.',
-        'Leading a 10-person pilot of the matching platform ahead of full production rollout, surfacing 180+ job matches daily.',
-        'Built and shipped internal automation tooling (Chrome extension for LinkedIn scraping, email-scraping tool, AI agent workflows) adopted across a 30–40 person team.',
-        'Lead a 3-person database engineering team: designed training, daily code review process, and technical mentorship.'
+        'Architected and built an AI-powered client-job matching platform end-to-end using React, TypeScript, Node.js/Express, PostgreSQL with pgvector, Elasticsearch, and Redis/BullMQ, combining semantic (vector) search with a custom explainable scoring engine to rank and justify client-job matches.',
+        'Built the company’s core database from scratch to 1,000+ verified companies and 20,000+ verified corporate contacts across BFSI, GCCs, Tech/SaaS, Healthcare, VC/PE, and more, alongside a client database of 1,000+ (300+ concurrently active).',
+        'Leading a 10-person pilot of the matching platform ahead of full production rollout, surfacing 180+ job matches daily across the team, including 80+ senior-level roles personally sourced and vetted daily.',
+        'Built and shipped internal automation tooling (Chrome extension for LinkedIn/job data scraping, email-scraping tool, AI-agent-based job search workflows) adopted across a 30–40 person operations team to increase throughput.',
+        'Lead a 3-person database team: designed their training process, review all work daily before merging, and manage task distribution and skill development; also serve as technical mentor and job-search advisor for the broader client-facing team.'
       ]
     },
     {

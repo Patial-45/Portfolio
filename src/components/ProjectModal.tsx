@@ -1,5 +1,5 @@
-import React from 'react';
-import { X, ExternalLink, CheckCircle2, Cpu, Database, Server, Code2, ArrowUpRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { X, ExternalLink, CheckCircle2, Cpu, Database, Server, Code2, ArrowUpRight, Image as ImageIcon, Layout, Sparkles } from 'lucide-react';
 import { Project } from '../data/portfolioData';
 import { GithubIcon } from './Icons';
 import { ResumeMatcherGraphic, ExecutiveSearchGraphic, FreelanceMarketplaceGraphic, AutomationToolingGraphic } from './ProjectGraphics';
@@ -10,6 +10,8 @@ interface ProjectModalProps {
 }
 
 export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
+  const [modalTab, setModalTab] = useState<'snapshot' | 'architecture'>('snapshot');
+
   if (!project) return null;
 
   const renderGraphic = () => {
@@ -130,19 +132,164 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
         {/* Scrollable Modal Content */}
         <div style={{ overflowY: 'auto', padding: 'clamp(18px, 4vw, 32px)' }}>
           
-          {/* Visual Graphic Showcase Box */}
+          {/* View Mode Tabs */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '10px',
+              marginBottom: '14px',
+            }}
+          >
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <button
+                onClick={() => setModalTab('snapshot')}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '7px 14px',
+                  borderRadius: '8px',
+                  fontSize: '12.5px',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  border: modalTab === 'snapshot' ? '1px solid #0A0A0A' : '1px solid rgba(0,0,0,0.12)',
+                  backgroundColor: modalTab === 'snapshot' ? '#0A0A0A' : '#FFFFFF',
+                  color: modalTab === 'snapshot' ? '#FAF7F3' : '#333333',
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                <Layout size={14} color={modalTab === 'snapshot' ? '#F59E0B' : '#666'} />
+                <span>Working Interface Snapshot</span>
+              </button>
+
+              {['ai-resume-builder', 'executive-search', 'online-freelance', 'automation-tooling'].includes(project.id) && (
+                <button
+                  onClick={() => setModalTab('architecture')}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '7px 14px',
+                    borderRadius: '8px',
+                    fontSize: '12.5px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    border: modalTab === 'architecture' ? '1px solid #0A0A0A' : '1px solid rgba(0,0,0,0.12)',
+                    backgroundColor: modalTab === 'architecture' ? '#0A0A0A' : '#FFFFFF',
+                    color: modalTab === 'architecture' ? '#FAF7F3' : '#333333',
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  <Cpu size={14} color={modalTab === 'architecture' ? '#F59E0B' : '#666'} />
+                  <span>Architecture & Data Flow</span>
+                </button>
+              )}
+            </div>
+
+            <a
+              href={project.snapshotUrl || project.image}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                fontSize: '12px',
+                fontWeight: 600,
+                color: '#2563EB',
+                textDecoration: 'none',
+              }}
+            >
+              <span>Open Full Image</span>
+              <ArrowUpRight size={13} />
+            </a>
+          </div>
+
+          {/* Visual Showcase Box */}
           <div
             style={{
               width: '100%',
-              height: 'clamp(260px, 35vw, 300px)',
               borderRadius: '16px',
               overflow: 'hidden',
               marginBottom: '28px',
-              boxShadow: '0 8px 24px rgba(0, 0, 0, 0.1)',
-              border: '1px solid rgba(0, 0, 0, 0.1)',
+              boxShadow: '0 12px 32px rgba(0, 0, 0, 0.14)',
+              border: '1px solid rgba(0, 0, 0, 0.12)',
+              backgroundColor: '#090D16',
             }}
           >
-            {renderGraphic()}
+            {modalTab === 'snapshot' ? (
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {/* Browser Bar */}
+                <div
+                  style={{
+                    height: '34px',
+                    backgroundColor: '#0D1117',
+                    borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '0 12px',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#EF4444' }} />
+                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#F59E0B' }} />
+                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10B981' }} />
+                    <span style={{ fontSize: '11px', color: '#94A3B8', fontFamily: 'monospace', marginLeft: '6px' }}>
+                      {project.id === 'ai-resume-builder' ? 'https://ats-matcher.sahilpatial.dev' :
+                       project.id === 'executive-search' ? 'https://decorporate.ai/talent-vector' :
+                       project.id === 'online-freelance' ? 'https://vectrawork.market/dashboard' :
+                       project.id === 'automation-tooling' ? 'chrome-extension://talentscout-pro' :
+                       'https://quite-hours.local/app'}
+                    </span>
+                  </div>
+                  <span style={{ fontSize: '10.5px', color: '#10B981', fontWeight: 700 }}>
+                    ● Production UI
+                  </span>
+                </div>
+
+                {/* High Resolution Snapshot View */}
+                <div style={{ width: '100%', height: 'clamp(280px, 45vw, 440px)', backgroundColor: '#090D16', position: 'relative' }}>
+                  <img
+                    src={project.snapshotUrl || project.image}
+                    alt={project.title}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'contain',
+                      objectPosition: 'center center',
+                      display: 'block',
+                    }}
+                  />
+                </div>
+
+                {/* Snapshot Caption */}
+                {project.snapshotCaption && (
+                  <div
+                    style={{
+                      padding: '10px 16px',
+                      backgroundColor: '#0D1117',
+                      borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      fontSize: '12px',
+                      color: '#CBD5E1',
+                    }}
+                  >
+                    <Sparkles size={14} color="#F59E0B" />
+                    <span><strong>Interface Feature:</strong> {project.snapshotCaption}</span>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div style={{ height: 'clamp(260px, 35vw, 320px)' }}>
+                {renderGraphic()}
+              </div>
+            )}
           </div>
 
           {/* Title & Tagline */}

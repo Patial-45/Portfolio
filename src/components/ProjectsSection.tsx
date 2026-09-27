@@ -10,6 +10,13 @@ import { ProjectModal } from './ProjectModal';
 export const ProjectsSection: React.FC = () => {
   const [filter, setFilter] = useState<'all' | 'ai' | 'fullstack' | 'automation'>('all');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [cardModes, setCardModes] = useState<Record<string, 'snapshot' | 'graphic'>>({
+    'ai-resume-builder': 'snapshot',
+    'executive-search': 'snapshot',
+    'online-freelance': 'snapshot',
+    'automation-tooling': 'snapshot',
+    'quiet-hours': 'snapshot',
+  });
 
   const filteredProjects = filter === 'all'
     ? PORTFOLIO_DATA.projects
@@ -176,12 +183,12 @@ export const ProjectsSection: React.FC = () => {
                 className="project-card"
                 onClick={() => setSelectedProject(project)}
               >
-                {/* Visual Graphics Preview Window */}
+                {/* Visual Graphics / UI Snapshot Window */}
                 <div
                   style={{
                     position: 'relative',
                     width: '100%',
-                    height: '305px',
+                    height: '315px',
                     borderRadius: '18px',
                     overflow: 'hidden',
                     backgroundColor: '#090D16',
@@ -189,57 +196,184 @@ export const ProjectsSection: React.FC = () => {
                     marginBottom: '20px',
                     boxShadow: '0 8px 24px rgba(0, 0, 0, 0.1)',
                     boxSizing: 'border-box',
+                    display: 'flex',
+                    flexDirection: 'column',
                   }}
                   className="project-image-wrap"
                 >
-                  {renderProjectGraphic(project)}
+                  {/* Browser Chrome Header */}
+                  <div
+                    style={{
+                      height: '36px',
+                      backgroundColor: '#0D1117',
+                      borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '0 12px',
+                      zIndex: 4,
+                      flexShrink: 0,
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#EF4444' }} />
+                      <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#F59E0B' }} />
+                      <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10B981' }} />
+                      <span style={{ fontSize: '10.5px', color: '#94A3B8', fontFamily: 'monospace', marginLeft: '6px' }}>
+                        {project.id === 'ai-resume-builder' ? 'ats-matcher.app' :
+                         project.id === 'executive-search' ? 'decorporate.ai/vector' :
+                         project.id === 'online-freelance' ? 'vectrawork.market' :
+                         project.id === 'automation-tooling' ? 'chrome://talentscout-pro' :
+                         'quite-hours.local'}
+                      </span>
+                    </div>
 
-                  {/* Badge Overlay */}
-                  {project.badge && (
+                    {/* View Switcher: UI Snapshot vs Architecture */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                        borderRadius: '6px',
+                        padding: '2px',
+                        gap: '2px',
+                      }}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setCardModes(prev => ({ ...prev, [project.id]: 'snapshot' }));
+                        }}
+                        style={{
+                          fontSize: '10px',
+                          fontWeight: 700,
+                          padding: '2px 8px',
+                          borderRadius: '4px',
+                          border: 'none',
+                          cursor: 'pointer',
+                          backgroundColor: (cardModes[project.id] ?? 'snapshot') === 'snapshot' ? '#F59E0B' : 'transparent',
+                          color: (cardModes[project.id] ?? 'snapshot') === 'snapshot' ? '#0A0A0A' : '#94A3B8',
+                          transition: 'all 0.2s ease',
+                        }}
+                      >
+                        UI Snapshot
+                      </button>
+                      {['ai-resume-builder', 'executive-search', 'online-freelance', 'automation-tooling'].includes(project.id) && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setCardModes(prev => ({ ...prev, [project.id]: 'graphic' }));
+                          }}
+                          style={{
+                            fontSize: '10px',
+                            fontWeight: 700,
+                            padding: '2px 8px',
+                            borderRadius: '4px',
+                            border: 'none',
+                            cursor: 'pointer',
+                            backgroundColor: (cardModes[project.id] ?? 'snapshot') === 'graphic' ? '#F59E0B' : 'transparent',
+                            color: (cardModes[project.id] ?? 'snapshot') === 'graphic' ? '#0A0A0A' : '#94A3B8',
+                            transition: 'all 0.2s ease',
+                          }}
+                        >
+                          Architecture
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Main Display Area */}
+                  <div style={{ position: 'relative', width: '100%', flex: 1, overflow: 'hidden' }}>
+                    {(cardModes[project.id] ?? 'snapshot') === 'snapshot' ? (
+                      <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                        <img
+                          src={project.snapshotUrl || project.image}
+                          alt={project.title}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            objectPosition: 'top center',
+                            display: 'block',
+                            transition: 'transform 0.4s ease',
+                          }}
+                        />
+                        {project.snapshotCaption && (
+                          <div
+                            style={{
+                              position: 'absolute',
+                              bottom: 0,
+                              insetInline: 0,
+                              padding: '6px 12px',
+                              background: 'linear-gradient(to top, rgba(10, 15, 25, 0.95), rgba(10, 15, 25, 0.6) 80%, transparent)',
+                              fontSize: '10.5px',
+                              color: '#E2E8F0',
+                              fontWeight: 600,
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '6px',
+                              borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                            }}
+                          >
+                            <span style={{ color: '#10B981', fontWeight: 800 }}>● LIVE UI</span>
+                            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                              {project.snapshotCaption}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      renderProjectGraphic(project)
+                    )}
+
+                    {/* Badge Overlay */}
+                    {project.badge && (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: '10px',
+                          left: '10px',
+                          backgroundColor: '#0A0A0A',
+                          color: '#F59E0B',
+                          fontSize: '11px',
+                          fontWeight: 800,
+                          padding: '4px 12px',
+                          borderRadius: '999px',
+                          letterSpacing: '0.06em',
+                          textTransform: 'uppercase',
+                          border: '1px solid rgba(245, 158, 11, 0.4)',
+                          zIndex: 2,
+                          boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+                        }}
+                      >
+                        ✦ {project.badge}
+                      </div>
+                    )}
+
+                    {/* Click to Inspect Overlay on Hover */}
                     <div
                       style={{
                         position: 'absolute',
-                        top: '14px',
-                        left: '14px',
-                        backgroundColor: '#0A0A0A',
-                        color: '#F59E0B',
-                        fontSize: '11px',
-                        fontWeight: 800,
-                        padding: '4px 12px',
-                        borderRadius: '999px',
-                        letterSpacing: '0.06em',
-                        textTransform: 'uppercase',
-                        border: '1px solid rgba(245, 158, 11, 0.4)',
-                        zIndex: 2,
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+                        inset: 0,
+                        backgroundColor: 'rgba(10, 10, 10, 0.65)',
+                        opacity: 0,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '8px',
+                        color: '#FFFFFF',
+                        fontSize: '13px',
+                        fontWeight: 700,
+                        backdropFilter: 'blur(4px)',
+                        transition: 'opacity 0.25s ease',
+                        zIndex: 3,
                       }}
+                      className="project-hover-overlay"
                     >
-                      ✦ {project.badge}
+                      <Eye size={17} color="#38BDF8" />
+                      <span>Inspect Interface & System Architecture</span>
                     </div>
-                  )}
-
-                  {/* Click to Inspect Overlay on Hover */}
-                  <div
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      backgroundColor: 'rgba(10, 10, 10, 0.65)',
-                      opacity: 0,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '8px',
-                      color: '#FFFFFF',
-                      fontSize: '13px',
-                      fontWeight: 700,
-                      backdropFilter: 'blur(4px)',
-                      transition: 'opacity 0.25s ease',
-                      zIndex: 3,
-                    }}
-                    className="project-hover-overlay"
-                  >
-                    <Eye size={17} color="#38BDF8" />
-                    <span>Click to Inspect Architecture</span>
                   </div>
                 </div>
 

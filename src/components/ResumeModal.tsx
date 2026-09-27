@@ -61,6 +61,28 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <a
+              href="/Sahil_Patial_Resume.pdf"
+              download="Sahil_Patial_Resume.pdf"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '8px 14px',
+                borderRadius: '8px',
+                backgroundColor: '#0A0A0A',
+                color: '#FAF7F3',
+                fontSize: '13px',
+                fontWeight: 700,
+                textDecoration: 'none',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+                transition: 'opacity 0.2s ease',
+              }}
+            >
+              <Download size={14} color="#F59E0B" />
+              <span>Download Official PDF</span>
+            </a>
+
             <button
               onClick={handlePrint}
               style={{
@@ -77,7 +99,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
               }}
             >
               <Printer size={14} />
-              <span>Print / Save PDF</span>
+              <span>Print</span>
             </button>
 
             <button
@@ -142,7 +164,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                 <span>Sep 2025 – Present</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontStyle: 'italic', fontSize: '13px', marginBottom: '8px' }}>
-                <span>Senior Operations Associate & Full Stack Lead</span>
+                <span>Senior Operations Associate</span>
                 <span>Chandigarh, India</span>
               </div>
               <ul style={{ paddingLeft: '18px', display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '13px' }}>
@@ -150,7 +172,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                 <li>Built the company’s core database from scratch to 1,000+ verified companies and 20,000+ verified corporate contacts across BFSI, GCCs, Tech/SaaS, Healthcare, VC/PE, and more, alongside a client database of 1,000+ (300+ concurrently active).</li>
                 <li>Leading a 10-person pilot of the matching platform ahead of full production rollout, surfacing 180+ job matches daily across the team, including 80+ senior-level roles personally sourced and vetted daily.</li>
                 <li>Built and shipped internal automation tooling (Chrome extension for LinkedIn/job data scraping, email-scraping tool, AI-agent-based job search workflows) adopted across a 30–40 person operations team to increase throughput.</li>
-                <li>Lead a 3-person database team: designed their training process, review all work daily before merging, and manage task distribution and skill development; also serve as technical mentor and job-search advisor.</li>
+                <li>Lead a 3-person database team: designed their training process, review all work daily before merging, and manage task distribution and skill development; also serve as technical mentor and job-search advisor for the broader client-facing team.</li>
               </ul>
             </div>
           </div>
