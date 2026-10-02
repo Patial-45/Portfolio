@@ -1,6 +1,6 @@
 # Sahil Patial — Full Stack Developer & Software Engineer Portfolio
 
-A high-performance portfolio website engineered with **React 19**, **TypeScript**, and **Vite**, replicating the exact luxury editorial design, physics, and typography of the [Majd Framer Reference](https://majd-portfolio.framer.website/).
+A high-performance portfolio website engineered with **React 19**, **TypeScript**, and **Vite**, replicating the exact luxury editorial design, physics, and typography of Different Developer Portfolios.
 
 ---
 
