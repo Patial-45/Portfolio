@@ -53,9 +53,6 @@ export const ExperienceAndSkills: React.FC = () => {
                 color: '#0A0A0A',
               }}
             />
-            <span style={{ fontSize: '13px', fontWeight: 700, color: '#D97706', backgroundColor: 'rgba(245, 158, 11, 0.12)', padding: '3px 10px', borderRadius: '6px' }}>
-              [03 / Career & Mastery]
-            </span>
           </div>
 
           {/* Tab Switcher */}

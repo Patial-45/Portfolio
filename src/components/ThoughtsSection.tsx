@@ -46,9 +46,6 @@ export const ThoughtsSection: React.FC = () => {
                 color: '#0A0A0A',
               }}
             />
-            <span style={{ fontSize: '13px', fontWeight: 700, color: '#D97706', backgroundColor: 'rgba(245, 158, 11, 0.12)', padding: '3px 10px', borderRadius: '6px' }}>
-              [05 / Engineering Notes]
-            </span>
           </div>
 
           <span style={{ fontSize: '13px', color: '#1A1A1A', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}>

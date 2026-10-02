@@ -68,9 +68,6 @@ export const TestimonialsSection: React.FC = () => {
                 color: 'var(--token-dark)',
               }}
             />
-            <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--token-text-muted)' }}>
-              [04 / Trust & Validation]
-            </span>
           </div>
 
           <span style={{ fontSize: '13px', color: 'var(--token-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>

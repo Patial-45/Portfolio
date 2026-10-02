@@ -101,7 +101,7 @@ export const BioAndAvatar: React.FC<BioAndAvatarProps> = ({ onOpenResume }) => {
                       width: '100%',
                       height: '100%',
                       objectFit: 'cover',
-                      objectPosition: 'center 20%',
+                      objectPosition: 'center 35%',
                       filter: 'contrast(1.05) brightness(1.02)',
                     }}
                   />
