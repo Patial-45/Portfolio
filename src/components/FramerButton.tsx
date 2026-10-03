@@ -6,6 +6,8 @@ interface FramerButtonProps {
   hoverText?: string;
   href?: string;
   onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
   variant?: 'primary' | 'secondary' | 'dark' | 'light';
   size?: 'sm' | 'md' | 'lg';
   icon?: React.ReactNode;
@@ -19,6 +21,8 @@ export const FramerButton: React.FC<FramerButtonProps> = ({
   hoverText,
   href,
   onClick,
+  type,
+  disabled,
   variant = 'primary',
   size = 'md',
   icon,
@@ -164,10 +168,16 @@ export const FramerButton: React.FC<FramerButtonProps> = ({
 
   return (
     <button
-      onClick={onClick}
-      style={buttonStyle}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      type={type}
+      disabled={disabled}
+      onClick={disabled ? undefined : onClick}
+      style={{
+        ...buttonStyle,
+        opacity: disabled ? 0.6 : 1,
+        cursor: disabled ? 'not-allowed' : 'pointer',
+      }}
+      onMouseEnter={() => !disabled && setIsHovered(true)}
+      onMouseLeave={() => !disabled && setIsHovered(false)}
     >
       {content}
     </button>

@@ -13,9 +13,11 @@ export const ContactSection: React.FC = () => {
     roleInterest: 'Full Stack Developer',
     message: '',
   });
+  const [honeypot, setHoneypot] = useState('');
   const [isCopied, setIsCopied] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(PORTFOLIO_DATA.profile.email);
@@ -23,24 +25,56 @@ export const ContactSection: React.FC = () => {
     setTimeout(() => setIsCopied(false), 2500);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
-    setTimeout(() => {
-      setIsSubmitting(false);
+    if (honeypot) {
+      // Bot trapped in honeypot
       setIsSubmitted(true);
-      try {
-        confetti({
-          particleCount: 110,
-          spread: 80,
-          origin: { y: 0.6 },
-          colors: ['#F59E0B', '#0A0A0A', '#10B981', '#38BDF8', '#E11D48']
-        });
-      } catch (err) {
-        // fallback
+      return;
+    }
+
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/patial2001@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          roleInterest: formData.roleInterest,
+          message: formData.message,
+          _subject: `Portfolio Message from ${formData.name} (${formData.roleInterest})`,
+          _template: 'table',
+        }),
+      });
+
+      const data = await response.json().catch(() => null);
+
+      if (response.ok && data?.success !== 'false') {
+        setIsSubmitted(true);
+        try {
+          confetti({
+            particleCount: 110,
+            spread: 80,
+            origin: { y: 0.6 },
+            colors: ['#F59E0B', '#0A0A0A', '#10B981', '#38BDF8', '#E11D48'],
+          });
+        } catch (err) {
+          // fallback
+        }
+      } else {
+        throw new Error('Form gateway rejected');
       }
-    }, 700);
+    } catch (err) {
+      setErrorMessage('Could not connect to automated email gateway. You can send your message directly via your email client using the button below.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -347,10 +381,10 @@ export const ContactSection: React.FC = () => {
                     <Check size={36} />
                   </div>
                   <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '26px', fontWeight: 800, color: '#0A0A0A' }}>
-                    Message Received!
+                    Message Delivered to Sahil!
                   </h3>
-                  <p style={{ fontSize: '15px', color: '#374151', maxWidth: '360px', lineHeight: 1.6 }}>
-                    Thank you for reaching out, {formData.name}. I will review your note and respond back at {formData.email} promptly!
+                  <p style={{ fontSize: '15px', color: '#374151', maxWidth: '380px', lineHeight: 1.6 }}>
+                    Thank you, {formData.name}. Your note has been delivered to Sahil Patial (<strong>patial2001@gmail.com</strong>). I will review your note and respond back to <strong>{formData.email}</strong> promptly!
                   </p>
                   <button
                     onClick={() => {
@@ -375,6 +409,17 @@ export const ContactSection: React.FC = () => {
               ) : (
                 <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
                   
+                  {/* Anti-spam honeypot (Cloudflare/Bot defense) */}
+                  <input
+                    type="text"
+                    name="_honey"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                    style={{ display: 'none' }}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+
                   <div>
                     <label
                       style={{
@@ -547,10 +592,43 @@ export const ContactSection: React.FC = () => {
                     />
                   </div>
 
+                  {errorMessage && (
+                    <div
+                      style={{
+                        padding: '12px 16px',
+                        borderRadius: '10px',
+                        backgroundColor: 'rgba(239, 68, 68, 0.08)',
+                        border: '1px solid rgba(239, 68, 68, 0.25)',
+                        fontSize: '13px',
+                        color: '#DC2626',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '8px',
+                      }}
+                    >
+                      <span>{errorMessage}</span>
+                      <a
+                        href={`mailto:patial2001@gmail.com?subject=${encodeURIComponent(`Inquiry from ${formData.name} (${formData.roleInterest})`)}&body=${encodeURIComponent(formData.message)}`}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          color: '#0A0A0A',
+                          fontWeight: 700,
+                          textDecoration: 'underline',
+                          width: 'fit-content',
+                        }}
+                      >
+                        Click here to send directly via Email App →
+                      </a>
+                    </div>
+                  )}
+
                   <FramerButton
+                    type="submit"
+                    disabled={isSubmitting}
                     text={isSubmitting ? 'Sending Message...' : 'Submit Message'}
                     hoverText="Send to Sahil"
-                    onClick={() => {}}
                     variant="primary"
                     size="lg"
                   />

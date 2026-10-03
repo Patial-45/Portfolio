@@ -42,8 +42,8 @@ export const App: React.FC = () => {
       {/* Experience, Education, Skills & Certifications */}
       <ExperienceAndSkills />
 
-      {/* Testimonials with 3D Card Flips */}
-      <TestimonialsSection />
+      {/* Testimonials with 3D Card Flips (temporarily hidden from frontend until verified testimonials are added) */}
+      {/* <TestimonialsSection /> */}
 
       {/* Thoughts / Engineering Notes */}
       <ThoughtsSection />

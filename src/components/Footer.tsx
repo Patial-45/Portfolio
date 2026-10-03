@@ -218,7 +218,6 @@ export const Footer: React.FC = () => {
                 { label: 'Core Services', href: '#services' },
                 { label: 'Featured Projects', href: '#projects', badge: '5 Systems' },
                 { label: 'Experience & Stack', href: '#experience' },
-                { label: 'Testimonials', href: '#testimonials' },
                 { label: 'Engineering Thoughts', href: '#thoughts' },
                 { label: 'Get in Touch', href: '#contact' },
               ].map((item) => (
